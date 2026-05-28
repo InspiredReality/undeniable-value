@@ -8,8 +8,16 @@ const INITIAL = [
   { role: 'assistant', text: "Welcome to Enjoy. You've earned this. What would you like to savor or celebrate today?" }
 ];
 
+const FALLBACKS = [
+  "That's worth savoring. Take a moment with it.",
+  "Beautiful. Enjoyment is fuel — don't skip it.",
+  "Yes. This is the part people forget to do. Well done.",
+  "Love that. What made it feel good?",
+  "Exactly right. More of this, please."
+];
+
 export default function Enjoy() {
-  const { messages, typing, sendMessage } = useChat(INITIAL);
+  const { messages, typing, sendMessage } = useChat(INITIAL, FALLBACKS);
   const [systemPrompt, setSystemPrompt] = useState('');
   const bottomRef = useRef(null);
 
