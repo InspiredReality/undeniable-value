@@ -9,8 +9,16 @@ const INITIAL = [
   { role: 'assistant', text: "Welcome to Win. Type a goal — rough, vague, or half-formed — and I'll help you sharpen it into something actionable." }
 ];
 
+const FALLBACKS = [
+  "Let's break that down. What does success actually look like in concrete terms?",
+  "Good start. Now — what's the one thing you can do in the next 24 hours to move this forward?",
+  "That's a direction, not a goal yet. What would you measure to know you've won?",
+  "Solid. What's the biggest obstacle between you and this, and how do you plan to handle it?",
+  "Got it. Give me a deadline and I'll help you make it real."
+];
+
 export default function Win() {
-  const { messages, typing, sendMessage } = useChat(INITIAL);
+  const { messages, typing, sendMessage } = useChat(INITIAL, FALLBACKS);
   const [systemPrompt, setSystemPrompt] = useState('');
   const bottomRef = useRef(null);
 

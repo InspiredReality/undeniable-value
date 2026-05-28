@@ -8,8 +8,16 @@ const INITIAL = [
   { role: 'assistant', text: "Welcome to Play! Explore freely — what's on your mind?" }
 ];
 
+const FALLBACKS = [
+  "That sounds fun! Let's explore that idea together.",
+  "Interesting choice. Play is all about curiosity — where do you want to take this?",
+  "Love it. Experimentation is how the best things get built.",
+  "Nice. No rules here — just ideas and momentum.",
+  "Let's go! What's the first move?"
+];
+
 export default function Play() {
-  const { messages, typing, sendMessage } = useChat(INITIAL);
+  const { messages, typing, sendMessage } = useChat(INITIAL, FALLBACKS);
   const [systemPrompt, setSystemPrompt] = useState('');
   const bottomRef = useRef(null);
 
