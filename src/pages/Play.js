@@ -1,31 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ChatBubble from '../components/ChatBubble';
 import ChatInput from '../components/ChatInput';
 import { useChat } from '../hooks/useChat';
 import './Page.css';
 
 const INITIAL = [
-  {
-    role: 'assistant',
-    text: "Welcome to Play! This is your space to experiment, explore ideas, and have fun. What would you like to create or try today?"
-  }
+  { role: 'assistant', text: "Welcome to Play! Explore freely — what's on your mind?" }
 ];
-
-const REPLIES = [
-  "That sounds fun! Let's explore that idea together.",
-  "Interesting choice. Play is all about curiosity — where do you want to take this?",
-  "Love it. Experimentation is how the best things get built.",
-  "Nice. No rules here — just ideas and momentum.",
-  "Let's go! What's the first move?"
-];
-
-function getReply(text) {
-  return REPLIES[Math.floor(Math.random() * REPLIES.length)];
-}
 
 export default function Play() {
   const { messages, typing, sendMessage } = useChat(INITIAL);
+  const [systemPrompt, setSystemPrompt] = useState('');
   const bottomRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/memory/play.md').then(r => r.text()).then(setSystemPrompt);
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -46,7 +36,7 @@ export default function Play() {
         <div ref={bottomRef} />
       </div>
 
-      <ChatInput onSend={text => sendMessage(text, getReply)} disabled={typing} />
+      <ChatInput onSend={text => sendMessage(text, systemPrompt)} disabled={typing} />
     </div>
   );
 }

@@ -1,31 +1,21 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ChatBubble from '../components/ChatBubble';
 import ChatInput from '../components/ChatInput';
 import { useChat } from '../hooks/useChat';
 import './Page.css';
 
 const INITIAL = [
-  {
-    role: 'assistant',
-    text: "Welcome to Enjoy. You've earned this. What's on your mind — or what would you like to celebrate today?"
-  }
+  { role: 'assistant', text: "Welcome to Enjoy. You've earned this. What would you like to savor or celebrate today?" }
 ];
-
-const REPLIES = [
-  "That's worth savoring. Take a moment with it.",
-  "Beautiful. Enjoyment is fuel — don't skip it.",
-  "Yes. This is the part people forget to do. Well done.",
-  "Love that. What made it feel good?",
-  "Exactly right. More of this, please."
-];
-
-function getReply(text) {
-  return REPLIES[Math.floor(Math.random() * REPLIES.length)];
-}
 
 export default function Enjoy() {
   const { messages, typing, sendMessage } = useChat(INITIAL);
+  const [systemPrompt, setSystemPrompt] = useState('');
   const bottomRef = useRef(null);
+
+  useEffect(() => {
+    fetch('/memory/enjoy.md').then(r => r.text()).then(setSystemPrompt);
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -46,7 +36,7 @@ export default function Enjoy() {
         <div ref={bottomRef} />
       </div>
 
-      <ChatInput onSend={text => sendMessage(text, getReply)} disabled={typing} />
+      <ChatInput onSend={text => sendMessage(text, systemPrompt)} disabled={typing} />
     </div>
   );
 }
