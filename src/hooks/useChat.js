@@ -36,8 +36,7 @@ export function useChat(page, fallbackReplies = []) {
       messagesRef.current = withReply;
       updateSession(page, { messages: withReply });
 
-      // Best-effort DB persistence — don't await so it doesn't block the UI
-      persistMessages(page, userMsg, assistantMsg, conversationIdRef, updateSession);
+      await persistMessages(page, userMsg, assistantMsg, conversationIdRef, updateSession);
     } catch {
       const fallback = fallbackReplies.length
         ? fallbackReplies[Math.floor(Math.random() * fallbackReplies.length)]
