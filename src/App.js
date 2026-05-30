@@ -3,10 +3,12 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import Play from './pages/Play';
 import Win from './pages/Win';
 import Enjoy from './pages/Enjoy';
+import { ChatProvider } from './context/ChatContext';
 import './App.css';
 
 export default function App() {
   return (
+    <ChatProvider>
     <div className="app">
       <nav className="nav">
         <NavLink to="/" end className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
@@ -28,5 +30,6 @@ export default function App() {
         </Routes>
       </main>
     </div>
+    </ChatProvider>
   );
 }
