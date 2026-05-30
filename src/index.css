@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+html {
+  height: 100%;
+}
+
 :root {
   --bg: #0f0f0f;
   --surface: #1a1a1a;
@@ -20,7 +24,13 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg);
   color: var(--text);
-  min-height: 100vh;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
