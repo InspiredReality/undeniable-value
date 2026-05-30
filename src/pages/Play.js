@@ -32,7 +32,7 @@ export default function Play() {
   const handleSelectConversation = async (id) => {
     const res = await fetch(`/api/conversation?id=${id}`);
     const msgs = await res.json();
-    updateSession('play', { messages: msgs, conversationId: id });
+    updateSession('play', { messages: msgs, conversationId: null });
     setShowHistory(false);
   };
 

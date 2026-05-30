@@ -2,7 +2,8 @@ const { getPool } = require('./db');
 
 module.exports = async function handler(req, res) {
   if (!process.env.DATABASE_URL) {
-    return res.json(req.method === 'GET' ? [] : { error: 'No database configured' });
+    if (req.method === 'GET') return res.json([]);
+    return res.status(503).json({ error: 'No database configured' });
   }
 
   const pool = await getPool();

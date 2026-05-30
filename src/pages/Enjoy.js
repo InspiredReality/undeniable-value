@@ -32,7 +32,7 @@ export default function Enjoy() {
   const handleSelectConversation = async (id) => {
     const res = await fetch(`/api/conversation?id=${id}`);
     const msgs = await res.json();
-    updateSession('enjoy', { messages: msgs, conversationId: id });
+    updateSession('enjoy', { messages: msgs, conversationId: null });
     setShowHistory(false);
   };
 

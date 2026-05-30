@@ -33,7 +33,7 @@ export default function Win() {
   const handleSelectConversation = async (id) => {
     const res = await fetch(`/api/conversation?id=${id}`);
     const msgs = await res.json();
-    updateSession('win', { messages: msgs, conversationId: id });
+    updateSession('win', { messages: msgs, conversationId: null });
     setShowHistory(false);
   };
 
